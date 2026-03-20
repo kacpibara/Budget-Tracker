@@ -42,29 +42,29 @@ Building this project solidified my understanding of RESTful API design, relatio
 Follow these steps to run the project locally on your machine.
 
 ### 1. Clone the repository
-\`\`\`bash
+```bash
 git clone https://github.com/kacpibara/Budget-Planner-API.git
 cd Budget-Planner-API
-\`\`\`
+```
 
 ### 2. Install Backend Dependencies
 Make sure you have [Node.js](https://nodejs.org/) installed, then run:
-\`\`\`bash
+```bash
 npm install
-\`\`\`
+```
 
 ### 3. Environment Variables setup
 Create a `.env` file in the root directory and add your secret keys:
-\`\`\`env
+```env
 PORT=3000
 JWT_SECRET=your_super_secret_jwt_key_here
-\`\`\`
+```
 
 ### 4. Start the Server
-\`\`\`bash
+```bash
 node app.js
 # or 'node server.js' depending on your entry file name
-\`\`\`
+```
 *The server will start on `http://localhost:3000` and automatically create the SQLite database (`budget.db`).*
 
 ### 5. Open the Frontend
