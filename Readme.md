@@ -1,4 +1,4 @@
-# Budget Tracker PRO (Fullstack)
+# Budget Tracker (Fullstack)
 
 A secure, full-stack personal finance application built to track daily expenses and incomes. This project demonstrates a complete Client-Server architecture with robust security, user authentication, and real-time data visualization.
 
