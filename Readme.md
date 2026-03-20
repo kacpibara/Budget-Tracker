@@ -1,17 +1,25 @@
-# Budget Tracker
+# Budget Tracker PRO (Fullstack)
 
 A secure, full-stack personal finance application built to track daily expenses and incomes. This project demonstrates a complete Client-Server architecture with robust security, user authentication, and real-time data visualization.
 
+## Live Demo
+**[Click here to check out the Live Application!](https://kacpibara.github.io/Budget-Planner/)**
+
+> **Live Demo Notice**
+> This application is deployed using free-tier cloud services (Render & GitHub Pages). To ensure a clean and safe testing environment for all visitors, the backend uses ephemeral storage. **The SQLite database automatically resets after 15 minutes of inactivity.**
+> 
+> Feel free to register a test account, add some expenses/incomes, download the CSV report, and explore the features! Your data will be wiped clean for the next guest shortly after you leave.
+
 ## Key Features
 
-* **Secure User Authentication:** Full registration and login system using **JWT (JSON Web Tokens)** and **bcryptjs** for password hashing. Each user has their own isolated financial workspace.
-* **Real-Time Visualization:** Interactive doughnut charts powered by **Chart.js** that dynamically update as transactions are added or removed.
-* **Production-Ready Security:** API endpoints are protected against XSS attacks and HTTP header vulnerabilities using **Helmet**. Brute-force and DDoS protections are implemented via **express-rate-limit**.
-* **CSV Export:** Users can download their complete transaction history as a `.csv` file directly from the browser using pure Vanilla JS.
-* **Single Page Application (SPA):** Seamless UI transitions between authentication and the main dashboard without page reloads.
-* **Responsive Design:** Clean, modern, and mobile-friendly interface built with CSS Grid and Flexbox.
+* **🔒 Secure User Authentication:** Full registration and login system using **JWT (JSON Web Tokens)** and **bcryptjs** for password hashing. Each user has their own isolated financial workspace.
+* **📊 Real-Time Visualization:** Interactive doughnut charts powered by **Chart.js** that dynamically update as transactions are added or removed.
+* **🛡️ Production-Ready Security:** API endpoints are protected against XSS attacks and HTTP header vulnerabilities using **Helmet**. Brute-force and DDoS protections are implemented via **express-rate-limit**.
+* **📄 CSV Export:** Users can download their complete transaction history as a `.csv` file directly from the browser using pure Vanilla JS.
+* **⚡ Single Page Application (SPA):** Seamless UI transitions between authentication and the main dashboard without page reloads.
+* **📱 Responsive Design:** Clean, modern, and mobile-friendly interface built with CSS Grid and Flexbox.
 
-## Tech Stack
+## 🛠️ Tech Stack
 
 **Frontend:**
 * HTML5 / CSS3 (CSS Variables, Grid, Flexbox)
@@ -22,8 +30,12 @@ A secure, full-stack personal finance application built to track daily expenses 
 * Node.js & Express.js
 * SQLite3 (Relational Database)
 * JWT & Bcryptjs (Auth & Crypto)
-* Helmet & Express-Rate-Limit (Security)
-* Dotenv (Environment variable management)
+* Helmet & express-rate-limit (Security)
+
+**DevOps & Deployment:**
+* Render (Backend Cloud Hosting)
+* GitHub Pages (Frontend Hosting)
+* GitHub Actions (CI/CD Automated Pipelines)
 
 ## API Endpoints Overview
 
@@ -35,7 +47,8 @@ A secure, full-stack personal finance application built to track daily expenses 
 * `DELETE /expenses/:id` - Delete a specific transaction (Requires JWT)
 
 ## What I Learned
-Building this project solidified my understanding of RESTful API design, relational database management with SQLite, and modern web security practices. Implementing JWT authentication from scratch taught me how to securely manage user sessions in a stateless environment.
+
+Building this project solidified my understanding of RESTful API design, relational database management with SQLite, and modern web security practices. Implementing JWT authentication from scratch taught me how to securely manage user sessions in a stateless environment. Furthermore, configuring automated deployments (CI/CD) with GitHub Actions gave me hands-on experience with modern DevOps workflows.
 
 ## Getting Started (Local Development)
 
@@ -48,7 +61,7 @@ cd Budget-Planner-API
 ```
 
 ### 2. Install Backend Dependencies
-Make sure you have [Node.js](https://nodejs.org/) installed, then run:
+Make sure you have Node.js installed, then run:
 ```bash
 npm install
 ```
@@ -62,12 +75,9 @@ JWT_SECRET=your_super_secret_jwt_key_here
 
 ### 4. Start the Server
 ```bash
-node app.js
-# or 'node server.js' depending on your entry file name
+node server.js
 ```
-*The server will start on `http://localhost:3000` and automatically create the SQLite database (`budget.db`).*
+*The server will start on http://localhost:3000 and automatically create the SQLite database (budget.db).*
 
 ### 5. Open the Frontend
-Since the frontend uses Vanilla JS and standard HTML, you can simply open the `index.html` file in your favorite browser, or use an extension like **Live Server** in VS Code.
-
----
+Since the frontend uses Vanilla JS and standard HTML, you can simply open the `index.html` file in your favorite browser, or use an extension like Live Server in VS Code.
