@@ -1,6 +1,10 @@
 const validateExpense = function(req, res, next) {
-    const { name, category, amount, date } = req.body;
+    const { type, name, category, amount, date } = req.body;
 
+    if(!type || (type !== 'income' && type !== 'expense')) {
+        return res.status(400).json({ error: "Type is required and must be 'income' or 'expense'." });
+    }
+    
     if(!name || typeof name !== 'string' || name.trim() === '') {
         return res.status(400).json({ error: "Name is required." });
     }

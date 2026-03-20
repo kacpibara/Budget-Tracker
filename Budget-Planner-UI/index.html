@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Budget Tracker</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <main class="container">
+        <header>
+            <h1>Budget Tracker</h1>
+        </header>
+
+        <div id="authSection">
+            <div class="forms-wrapper">
+                <div class="form-container">
+                    <h2>Login</h2>
+                    <form id="loginForm">
+                        <input id="loginUsername" type="text" placeholder="Username..." required autocomplete="off" />
+                        <input id="loginPassword" type="password" placeholder="Password..." required />
+                        <button type="submit">Log in</button>
+                    </form>
+                </div>
+
+                <div class="form-container">
+                    <h2>Register</h2>
+                    <form id="registerForm">
+                        <input id="regUsername" type="text" placeholder="New Username..." required autocomplete="off" />
+                        <input id="regPassword" type="password" placeholder="New Password..." required />
+                        <button type="submit" class="btn-success">Create Account</button>
+                    </form>
+                </div>
+            </div>
+            <div id="authError" class="auth-error"></div>
+        </div>
+
+        <div id="appSection" style="display: none;">
+            <div style="text-align: right; margin-bottom: 20px;">
+                <span id="currentUserDisplay" style="margin-right: 15px; font-weight: bold;"></span>
+                <button id="logoutBtn" class="logout-btn">Logout</button>
+            </div>
+
+            <div class="forms-wrapper">
+                <div class="form-container">
+                    <h2>Add Expense (-)</h2>
+                    <form id="expenseForm">
+                        <input id="expenseName" type="text" placeholder="Expense name..." autocomplete="off" required/>
+                        <select id="expenseCategory">
+                            <option value="Uncategorized" selected>Uncategorized</option>
+                            <option value="Food">Food</option>
+                            <option value="Transport">Transport</option>
+                            <option value="Entertainment">Entertainment</option>
+                            <option value="Housing">Housing</option>
+                        </select>
+                        <input id="expenseAmount" type="number" step="0.01" placeholder="Amount..." required/>
+                        <button type="submit">Add Expense</button>
+                    </form>
+                </div>
+
+                <div class="form-container">
+                    <h2>Add Income (+)</h2>
+                    <form id="incomeForm">
+                        <input id="incomeName" type="text" placeholder="Income name..." autocomplete="off" required/>
+                        <input id="incomeAmount" type="number" step="0.01" placeholder="Amount..." required/>
+                        <button type="submit" class="btn-success">Add Income</button>
+                    </form>
+                </div>
+
+                <div class="actions-wrapper">
+                    <button id="exportCsvBtn" class="export-btn">Export to CSV 📊</button>
+                    <button id="clearAllBtn" class="danger-btn">Clear All Data 🗑️</button>
+                </div>
+            </div>
+
+            <section id="balanceBox">
+                <h2>Total Balance</h2>
+                <div id="balanceValue">0.00 PLN</div>
+            </section>
+
+            <div class="chart-container" style="position: relative; max-width: 250px; margin: 0 auto 30px auto;">
+                <canvas id="expensesChart"></canvas>
+            </div>
+
+            <div class="lists">
+                <section class="list">
+                    <header class="listHeader">
+                        <span class="summaryLabel">Expenses</span>
+                        <span id="expensesTotal" class="summaryValue negative">0.00 PLN</span>
+                    </header>
+                    <div id="expensesList" class="items-container"></div>
+                </section>
+
+                <section class="list">
+                    <header class="listHeader">
+                        <span class="summaryLabel">Incomes</span>
+                        <span id="incomeTotal" class="summaryValue positive">0.00 PLN</span>
+                    </header>
+                    <div id="incomeList" class="items-container"></div>
+                </section>
+            </div>
+        </div>
+        
+    </main>
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>

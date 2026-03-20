@@ -1,119 +1,78 @@
 const express = require('express');
 const router = express.Router();
 const validateExpense = require('../middlewares/validateExpense.js');
+const verifyToken = require('../middlewares/verifyToken.js'); // NOWE: Importujemy strażnika
 const db = require('../db/database.js');
 
-router.get('/', function(req, res) {
-    const sql = "SELECT * FROM expenses";
-    db.all(sql, [], (err, rows) => {
-        if (err) {
-            return next(err);
-        }
+// NOWE: Dodajemy verifyToken do każdego endpointu.
+// Teraz req.userId zawiera ID zalogowanego użytkownika!
+
+router.get('/', verifyToken, function(req, res, next) {
+    // Pobieramy tylko wydatki zalogowanego użytkownika
+    const sql = "SELECT * FROM expenses WHERE user_id = ?";
+    db.all(sql, [req.userId], (err, rows) => {
+        if (err) return next(err);
         res.json(rows);
     });
 })
 
-router.get('/:id', function(req, res)  {
-    const id = req.params.id;
-    const sql = "SELECT * FROM expenses WHERE id = ?";
-
-    db.get(sql, [id], function(err, row) {
-        if (err) {
-            return next(err);
-        }
-
-        if (!row) {
-            return res.status(404).json({ 
-                error: "Expense not found!" 
-            });
-        }
-        res.json(row);
-    });
-});
-
-router.post('/', validateExpense, function(req, res) {
-    const { name, category, amount, date } = req.body;
-    const sql = `INSERT INTO expenses(name, category, amount, date) VALUES(?, ?, ?, ?)`;
-    const params = [name, category, amount, date];
+router.post('/', verifyToken, validateExpense, function(req, res, next) {
+    const { type, name, category, amount, date } = req.body;
+    // Dodajemy user_id do zapytania SQL
+    const sql = `INSERT INTO expenses(user_id, type, name, category, amount, date) VALUES(?, ?, ?, ?, ?, ?)`;
+    const params = [req.userId, type, name, category, amount, date];
 
     db.run(sql, params, function(err) {
-        if(err) {
-            return next(err);
-        }
-
-        const newExpense = {
-            id: this.lastID,
-            name,
-            category,
-            amount,
-            date
-        };
+        if(err) return next(err);
+        const newExpense = { id: this.lastID, user_id: req.userId, type, name, category, amount, date };
 
         res.status(201).json({
-            message: "Expense added successfully!",
+            message: "Transaction added successfully!",
             data: newExpense
         });
     }); 
 });
 
-router.put('/:id', validateExpense, function(req, res) {
+router.put('/:id', verifyToken, validateExpense, function(req, res, next) {
     const id = parseInt(req.params.id);
-    const { name, category, amount, date } = req.body;
+    const { type, name, category, amount, date } = req.body;
+    
+    // Upewniamy się, że użytkownik edytuje TYLKO SWÓJ wydatek (AND user_id = ?)
     const sql = `UPDATE expenses
-                 SET name = ?, category = ?, amount = ?, date = ?
-                 WHERE id = ?`;
-    const params = [name, category, amount, date, id];
+                 SET type = ?, name = ?, category = ?, amount = ?, date = ?
+                 WHERE id = ? AND user_id = ?`;
+    const params = [type, name, category, amount, date, id, req.userId];
 
     db.run(sql, params, function(err) {
-        if (err) {
-            return next(err);
-        }
-
+        if (err) return next(err);
         if (this.changes === 0) {
-            return res.status(404).json({ 
-                error: "No expense with this ID found." 
-            });
+            return res.status(404).json({ error: "No transaction found or unauthorized." });
         }
-
-        res.json({
-            message: "The expense has been updated!",
-            data: { id, name, category, amount, date }
-        });
+        res.json({ message: "The transaction has been updated!" });
     });
 });
 
-router.delete('/:id', function(req, res){
+router.delete('/:id', verifyToken, function(req, res, next){
     const id = parseInt(req.params.id);
-    const sql = `DELETE FROM expenses WHERE id = ?`
+    // Usuwamy tylko jeśli wydatek należy do zalogowanego użytkownika
+    const sql = `DELETE FROM expenses WHERE id = ? AND user_id = ?`;
 
-    db.run(sql, [id], function(err) {
-        if(err) {
-            return next(err);
-        }
-
+    db.run(sql, [id, req.userId], function(err) {
+        if(err) return next(err);
         if(this.changes === 0) {
-            return res.status(404).json({
-                error: "There is nothing to delete, no record found for this ID."
-            });
+            return res.status(404).json({ error: "Nothing to delete or unauthorized." });
         }
-
-         res.status(200).json({
-            message: "Expense deleted successfully!",
-            deletedCount: this.changes
-        });
+        res.status(200).json({ message: "Expense deleted successfully!" });
     });
 });
 
-router.get('/filter/:category', function(req, res){
-    const category = req.params.category;
-    const sql = "SELECT * FROM expenses WHERE category LIKE ?"
-
-    db.all(sql, [category], function(err, rows) {
-        if(err){
-            return next(err);
-        }
-
-        res.json(rows);
+router.delete('/', verifyToken, function(req, res, next) {
+    // Usuwamy wszystko, ale tylko dla tego konkretnego użytkownika
+    const sql = "DELETE FROM expenses WHERE user_id = ?";
+    
+    db.run(sql, [req.userId], function(err) {
+        if(err) return next(err);
+        res.status(200).json({ message: "All your data cleared successfully." });
     });
 });
 
