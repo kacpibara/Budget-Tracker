@@ -1,7 +1,7 @@
 import { getAuthHeaders, clearToken } from './auth.js';
 
-export const API_URL = 'https://budget-planner-06e3.onrender.com/expenses';
-export const AUTH_URL = 'https://budget-planner-06e3.onrender.com/auth';
+export const API_URL = 'https://budget-tracker-njeb.onrender.com/expenses';
+export const AUTH_URL = 'https://budget-tracker-njeb.onrender.com/auth';
 
 export function handleApiError(response, logoutCallback) {
     if (response.status === 401 || response.status === 403) {
