@@ -43,7 +43,11 @@ app.use('/auth', authLimiter);
 // standardowe middlewares
 app.use(myRequestLogger);
 app.use(cors());
-app.use(express.json());
+app.use(express.json({
+    origin: 'https://kacpibara.github.io', // Twój nowy adres front-endu
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true
+}));
 
 // routing
 app.use('/auth', authRoutes);
