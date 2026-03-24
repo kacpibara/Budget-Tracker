@@ -4,7 +4,7 @@ export const API_URL = 'https://budget-tracker-njeb.onrender.com/expenses';
 export const AUTH_URL = 'https://budget-tracker-njeb.onrender.com/auth';
 
 export function handleApiError(response, logoutCallback) {
-    if (response.status === 401 || response.status === 403) {
+    if (response.status === 401 || response.status === 403) { 
         alert("Your session has expired or is invalid. Please log in again.");
         clearToken();
         logoutCallback(); 
