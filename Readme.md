@@ -3,7 +3,7 @@
 A secure, full-stack personal finance application built to track daily expenses and incomes. This project demonstrates a complete Client-Server architecture with robust security, user authentication, and real-time data visualization.
 
 ## Live Demo
-**[Click here to check out the Live Application!](https://kacpibara.github.io/Budget-Planner/)**
+**[Click here to check out the Live Application!](https://kacpibara.github.io/Budget-Tracker/)**
 
 > **Live Demo Notice**
 > This application is deployed using free-tier cloud services (Render & GitHub Pages). To ensure a clean and safe testing environment for all visitors, the backend uses ephemeral storage. **The SQLite database automatically resets after 15 minutes of inactivity.**
