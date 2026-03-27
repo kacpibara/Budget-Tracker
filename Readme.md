@@ -1,4 +1,4 @@
-# Budget Tracker (Fullstack)
+# Budget Tracker
 
 A secure, full-stack personal finance application built to track daily expenses and incomes. This project demonstrates a complete Client-Server architecture with robust security, user authentication, and real-time data visualization.
 
@@ -12,14 +12,14 @@ A secure, full-stack personal finance application built to track daily expenses 
 
 ## Key Features
 
-* **🔒 Secure User Authentication:** Full registration and login system using **JWT (JSON Web Tokens)** and **bcryptjs** for password hashing. Each user has their own isolated financial workspace.
-* **📊 Real-Time Visualization:** Interactive doughnut charts powered by **Chart.js** that dynamically update as transactions are added or removed.
-* **🛡️ Production-Ready Security:** API endpoints are protected against XSS attacks and HTTP header vulnerabilities using **Helmet**. Brute-force and DDoS protections are implemented via **express-rate-limit**.
-* **📄 CSV Export:** Users can download their complete transaction history as a `.csv` file directly from the browser using pure Vanilla JS.
-* **⚡ Single Page Application (SPA):** Seamless UI transitions between authentication and the main dashboard without page reloads.
-* **📱 Responsive Design:** Clean, modern, and mobile-friendly interface built with CSS Grid and Flexbox.
+* **Secure User Authentication:** Full registration and login system using **JWT (JSON Web Tokens)** and **bcryptjs** for password hashing. Each user has their own isolated financial workspace.
+* **Real-Time Visualization:** Interactive doughnut charts powered by **Chart.js** that dynamically update as transactions are added or removed.
+* **Production-Ready Security:** API endpoints are protected against XSS attacks and HTTP header vulnerabilities using **Helmet**. Brute-force and DDoS protections are implemented via **express-rate-limit**.
+* **CSV Export:** Users can download their complete transaction history as a `.csv` file directly from the browser using pure Vanilla JS.
+* **Single Page Application (SPA):** Seamless UI transitions between authentication and the main dashboard without page reloads.
+* **Responsive Design:** Clean, modern, and mobile-friendly interface built with CSS Grid and Flexbox.
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 **Frontend:**
 * HTML5 / CSS3 (CSS Variables, Grid, Flexbox)
